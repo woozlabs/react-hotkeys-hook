@@ -1,4 +1,4 @@
-import { createContext, ReactNode, useContext } from "react";
+import { createContext, ReactNode, useContext, useMemo } from "react";
 import { Hotkey } from "./types";
 
 type BoundHotkeysProxyProviderType = {
@@ -20,9 +20,7 @@ interface Props {
 }
 
 export default function BoundHotkeysProxyProviderProvider({ addHotkey, removeHotkey, children }: Props) {
-  return (
-    <BoundHotkeysProxyProvider.Provider value={{ addHotkey, removeHotkey }}>
-      {children}
-    </BoundHotkeysProxyProvider.Provider>
-  );
+  const contextValue = useMemo(() => ({ addHotkey, removeHotkey }), [addHotkey, removeHotkey]);
+
+  return <BoundHotkeysProxyProvider.Provider value={contextValue}>{children}</BoundHotkeysProxyProvider.Provider>;
 }
