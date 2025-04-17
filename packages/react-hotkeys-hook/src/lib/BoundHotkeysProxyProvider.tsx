@@ -1,21 +1,22 @@
-import { createContext, ReactNode, useContext } from 'react'
-import { Hotkey } from './types'
+import { createContext, ReactNode, useContext } from "react";
+import { Hotkey } from "./types";
 
 type BoundHotkeysProxyProviderType = {
-  addHotkey: (hotkey: Hotkey) => void
-  removeHotkey: (hotkey: Hotkey) => void
-}
+  addHotkey: (hotkey: Hotkey) => void;
+  removeHotkey: (hotkey: Hotkey) => void;
+};
 
-const BoundHotkeysProxyProvider = createContext<BoundHotkeysProxyProviderType | undefined>(undefined)
+const BoundHotkeysProxyProvider = createContext<BoundHotkeysProxyProviderType | undefined>(undefined);
+BoundHotkeysProxyProvider.displayName = "BoundHotkeysProxyProvider";
 
 export const useBoundHotkeysProxy = () => {
-  return useContext(BoundHotkeysProxyProvider)
-}
+  return useContext(BoundHotkeysProxyProvider);
+};
 
 interface Props {
-  children: ReactNode
-  addHotkey: (hotkey: Hotkey) => void
-  removeHotkey: (hotkey: Hotkey) => void
+  children: ReactNode;
+  addHotkey: (hotkey: Hotkey) => void;
+  removeHotkey: (hotkey: Hotkey) => void;
 }
 
 export default function BoundHotkeysProxyProviderProvider({ addHotkey, removeHotkey, children }: Props) {
@@ -23,5 +24,5 @@ export default function BoundHotkeysProxyProviderProvider({ addHotkey, removeHot
     <BoundHotkeysProxyProvider.Provider value={{ addHotkey, removeHotkey }}>
       {children}
     </BoundHotkeysProxyProvider.Provider>
-  )
+  );
 }
